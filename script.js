@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const playerRows = document.getElementById('playerRows');
     const addPlayerBtn = document.getElementById('addPlayerBtn');
     const calculateBtn = document.getElementById('calculateBtn');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message';
+    document.querySelector('.container').appendChild(messageDiv);
 
     addPlayerBtn.addEventListener('click', function () {
         addPlayerRow();
@@ -26,12 +29,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function calculateNetResults() {
         const rows = playerRows.querySelectorAll('tr');
+        let totalBuyIns = 0;
+        let totalWinnings = 0;
+
         rows.forEach(row => {
             const buyin = parseFloat(row.querySelector('input[name="buyin"]').value) || 0;
             const winnings = parseFloat(row.querySelector('input[name="winnings"]').value) || 0;
             const netResult = winnings - buyin;
+
+            totalBuyIns += buyin;
+            totalWinnings += winnings;
+
             row.querySelector('.net-result').textContent = netResult.toFixed(2);
         });
+
+        if (totalBuyIns !== totalWinnings) {
+            messageDiv.textContent = `Discrepancy found: Total Buy-Ins (${totalBuyIns.toFixed(2)}) do not equal Total Winnings (${totalWinnings.toFixed(2)}). Please check the entries.`;
+            messageDiv.style.color = 'red';
+        } else {
+            messageDiv.textContent = 'All values are balanced.';
+            messageDiv.style.color = 'green';
+        }
     }
 
     function calculatePayments() {
@@ -43,39 +61,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 row: row
             };
         });
-    
+
         const payers = players.filter(p => p.netResult < 0).sort((a, b) => a.netResult - b.netResult);
         const receivers = players.filter(p => p.netResult > 0).sort((a, b) => b.netResult - a.netResult);
-    
+
         payers.forEach(payer => {
             let toPay = Math.abs(payer.netResult);
             const payments = [];
-    
+
             receivers.forEach(receiver => {
                 if (toPay > 0 && receiver.netResult > 0) {
                     const paymentAmount = Math.min(toPay, receiver.netResult);
                     if (paymentAmount > 0) {
-                        payments.push(`pays ${receiver.name} $${paymentAmount.toFixed(2)}`);
+                        payments.push(`Pays ${receiver.name} $${paymentAmount.toFixed(2)}`);
                     }
                     receiver.netResult -= paymentAmount;
                     toPay -= paymentAmount;
                 }
             });
-    
+
             payer.row.querySelector('.pays-who').textContent = payments.join(', ');
         });
-    
-        receivers.forEach(receiver => {
-            const payments = payers
-                .filter(payer => payer.netResult < 0)
-                .map(payer => {
-                    const paymentAmount = Math.min(Math.abs(payer.netResult), receiver.netResult);
-                    return paymentAmount > 0 ? `gets paid $${paymentAmount.toFixed(2)} from ${payer.name}` : null;
-                })
-                .filter(payment => payment);
-    
-            receiver.row.querySelector('.pays-who').textContent = payments.join(', ');
-        });
+
     }
-    
 });

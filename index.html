@@ -6,33 +6,39 @@
     <title>Poker Tracker</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-</head>
 <body>
-    <div class="container">
-        <h1>Poker Payout Calculator</h1>
-        <table id="playersTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Buy-In</th>
-                    <th>Winnings</th>
-                    <th>Net Result</th>
-                    <th>Pays Who</th>
-                </tr>
-            </thead>
-            <tbody id="playerRows">
-                <tr>
-                    <td><input type="text" name="name" placeholder="Player Name"></td>
-                    <td><input type="number" name="buyin" placeholder="Buy-In"></td>
-                    <td><input type="number" name="winnings" placeholder="Winnings"></td>
-                    <td class="net-result">0</td>
-                    <td class="pays-who"></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="button-container">
-            <button id="addPlayerBtn" class="add-btn">Add Player</button>
-            <button id="calculateBtn" class="calculate-btn">Calculate</button>
+    <div class="wrapper">
+        <div class="container">
+            <h1>Poker Payout Calculator</h1>
+            <h2>Instructions: Fill in box's with player names and their respective buy-ins and final chip count (winnings). Hit calculate to see net winnings and who has to pay who.</h2>
+            <table id="playersTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Buy-In</th>
+                        <th>Winnings</th>
+                        <th>Net Result</th>
+                        <th>Pays Who</th>
+                    </tr>
+                </thead>
+                <tbody id="playerRows">
+                    <tr>
+                        <td><input type="text" name="name" placeholder="Player Name"></td>
+                        <td><input type="number" name="buyin" placeholder="Buy-In"></td>
+                        <td><input type="number" name="winnings" placeholder="Winnings"></td>
+                        <td class="net-result">0</td>
+                        <td class="pays-who"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button id="addPlayerBtn" class="add-btn">Add Player</button>
+                <button id="calculateBtn" class="calculate-btn">Calculate</button>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>This page was written in HTML and CSS by Jonah Rothman</p>
         </div>
     </div>
 
