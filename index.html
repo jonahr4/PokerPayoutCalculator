@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Tracker</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+</head>
+<body>
+    <div class="container">
+        <h1>Poker Payout Calculator</h1>
+        <table id="playersTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Buy-In</th>
+                    <th>Winnings</th>
+                    <th>Net Result</th>
+                    <th>Pays Who</th>
+                </tr>
+            </thead>
+            <tbody id="playerRows">
+                <tr>
+                    <td><input type="text" name="name" placeholder="Player Name"></td>
+                    <td><input type="number" name="buyin" placeholder="Buy-In"></td>
+                    <td><input type="number" name="winnings" placeholder="Winnings"></td>
+                    <td class="net-result">0</td>
+                    <td class="pays-who"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button id="addPlayerBtn" class="add-btn">Add Player</button>
+            <button id="calculateBtn" class="calculate-btn">Calculate</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
